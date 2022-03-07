@@ -10,8 +10,21 @@
         <!-- custom css -->
     </head>
     <body>
-        <h4>Usertype Create</h4>
-
+        <div class="card">
+            <a href="{% url 'usertype.index' %}">Back to Home</a>
+        </div>
+        <h4>Usertype Create Form</h4>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="bw-bold text-uppercase">{{ title }}</h4>
+            </div>
+            <div class="card-body">
+                {{ description }}
+            </div>
+            <div class="card-footer">
+                {{ total_students }}
+            </div>
+        </div>
         
         <!-- bootstrap js -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
