@@ -33,12 +33,12 @@
                         <tbody>
                             {% for i in num %}
                                 <tr>
-                                    <td>{{ description.id }}</td>
+                                    <td>{{ forloop.counter }}</td>
                                     <td>{{ description.usertype }}</td>
                                     <td>{{ description.status }}</td>
-                                    <td><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                                    <td><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
-                                    <td><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                    <td><a href="{% url 'usertype.edit' description.id  %}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                                    <td><a href="{% url 'usertype.show' description.id  %}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                                    <td><a href="{% url 'usertype.delete' description.id  %}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>

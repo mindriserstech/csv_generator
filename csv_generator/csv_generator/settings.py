@@ -75,9 +75,17 @@ WSGI_APPLICATION = 'csv_generator.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '', # database name
+        'HOST': '', # localhost
+        'USER': '', # database user
+        'PASSWORD': '', # database user password
+        'PORT': '' # mysql port number i.e 3306
     }
 }
 
