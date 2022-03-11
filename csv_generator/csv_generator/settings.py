@@ -78,14 +78,14 @@ DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    # } 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '', # database name
-        'HOST': '', # localhost
-        'USER': '', # database user
+        'NAME': 'app_csv', # database name
+        'HOST': 'localhost', # localhost
+        'USER': 'root', # database user
         'PASSWORD': '', # database user password
-        'PORT': '' # mysql port number i.e 3306
+        'PORT': '3306' # mysql port number i.e 3306
     }
 }
 
