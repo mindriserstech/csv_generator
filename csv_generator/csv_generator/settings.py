@@ -55,7 +55,7 @@ ROOT_URLCONF = 'csv_generator.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'csvpp.templates'],
+        'DIRS': [BASE_DIR / 'csvapp.templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

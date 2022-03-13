@@ -16,13 +16,13 @@
             <div class="col-4 offset-3">
                 <div class="card">
                     <div class="card-header">
-                        <h4>{{ title }}</h4>
+                        <h4>{{ body_title }}</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{% url 'user.create' %}" method="POST">
+                        <form action="{% url 'user.login' %}" method="POST">
                             {% csrf_token %}
                             {{ form.as_p }}
-                                <input type="submit" value="REGISTER">
+                                <input type="submit" value="LOGIN">
                         </form>
                     </div>
                     <div class="card-footer">

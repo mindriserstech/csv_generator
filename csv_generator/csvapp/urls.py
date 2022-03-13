@@ -14,11 +14,12 @@ urlpatterns = [
     path('usertypes/delete/<int:id>', views.usertype_delete, name="usertype.delete"),
 
     # user
-    # path('/users/', views.usertype_index, name="users.index"),
-    # path('/users/create/', views.users_index, name="users.create"),
-    # path('/users/store/', views.users_index, name="users.store"),
-    # path('/users/udpate/', views.users_index, name="users.udpate"),
-    # path('/users/edit/<int:id>', views.users_index, name="users.edit"),
-    # path('/users/show/<int:id>', views.users_index, name="users.show"),
-    # path('/users/delete/<int:id>', views.users_index, name="users.delete"),
+    # path('/', views.usertype_index, name="user.index"),
+    path('login/', views.user_login, name="user.login"),
+    path('create/', views.user_create, name="user.create"),
+    # path('store/', views.users_index, name="user.store"),
+    # path('udpate/', views.users_index, name="user.udpate"),
+    # path('edit/<int:id>', views.users_index, name="user.edit"),
+    # path('show/<int:id>', views.users_index, name="user.show"),
+    # path('delete/<int:id>', views.users_index, name="user.delete"),
 ]
