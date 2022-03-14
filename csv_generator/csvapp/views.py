@@ -11,28 +11,69 @@ from csvapp.form import CsvUserLoginForm, CsvUserRegisterForm
 # Create your views here.
 
 # user view funtion
+def user_index(request):
+    if request.session.has_key('session_email'):
+        user = CsvUser.objects.get(email=request.session['session_email'])
+        context = {
+            'title': 'CSV | User Index',
+            'msg': 'Login success',
+            'data': user
+        }
+        template = 'users/index.html'
+        return render(request, template, context)
+    else:
+        template = 'users/login.html'
+        ul = CsvUserLoginForm()
+        context = {
+            'form': ul,
+            'title': 'CSV | User Login',
+            'body_title': 'User Login',
+            'msg': 'Unauthorized access'
+        }
+        return render(request, template, context)
+
+def user_logout(request):
+    del request.session['session_email']
+    template = 'users/login.html'
+    ul = CsvUserLoginForm()
+    context = {
+        'form': ul,
+        'title': 'CSV | User Login',
+        'body_title': 'User Login',
+        'msg': 'Logout Success'
+    }
+    return render(request, template, context)
+
 def user_login(request):
     template = 'users/login.html'
     ul = CsvUserLoginForm()
     if request.method == "POST":
-        # method one
-        # email = request.POST['email']
-        # mehod two
         try:
             email = request.POST.get('email')
             password = request.POST.get('password')
-            
             # fetching user object from database
             user = CsvUser.objects.get(email=email)
-            if password is user.password:
-                context = {
-                    'form': ul,
-                    'title': 'CSV | User Login',
-                    'body_title': 'User Login',
-                    'msg': 'Login success',
-                    'user': user
-                }
-                return render(request, template, context)
+            if password == user.password:
+                # to store session in django
+                request.session['session_email'] = user.email
+                if request.session.has_key('session_email'):
+                    user = CsvUser.objects.get(email=request.session['session_email'])
+                    context = {
+                        'title': 'CSV | User Index',
+                        'msg': 'Login success',
+                        'data': user
+                    }
+                    template = 'users/index.html'
+                    
+                    return render(request, template, context)
+                else:
+                    context = {
+                        'form': ul,
+                        'title': 'CSV | User Login',
+                        'body_title': 'User Login',
+                        'msg': 'Unauthorized access'
+                    }
+                    return render(request, template, context)
             else:
                 context = {
                     'form': ul,

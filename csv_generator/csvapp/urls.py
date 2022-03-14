@@ -14,8 +14,9 @@ urlpatterns = [
     path('usertypes/delete/<int:id>', views.usertype_delete, name="usertype.delete"),
 
     # user
-    # path('/', views.usertype_index, name="user.index"),
+    path('', views.user_index, name="user.index"),
     path('login/', views.user_login, name="user.login"),
+    path('logout/', views.user_logout, name="user.logout"),
     path('create/', views.user_create, name="user.create"),
     # path('store/', views.users_index, name="user.store"),
     # path('udpate/', views.users_index, name="user.udpate"),
