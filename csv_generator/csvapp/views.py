@@ -1,4 +1,6 @@
+import email
 from importlib.metadata import requires
+from re import template
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -31,6 +33,26 @@ def user_index(request):
             'msg': 'Unauthorized access'
         }
         return render(request, template, context)
+
+def user_show(request):
+    if request.session.has_key('session_email'):
+        user = CsvUser.objects.get(email=request.session['session_email'])
+        template = 'users/show.html'
+        context = {
+            'data': user,
+            'title': 'CSV | User Profile'
+        }
+        return render(request, template, context)
+    else:
+        template = 'users/login.html'
+        ul = CsvUserLoginForm()
+        context = {
+            'form': ul,
+            'title': 'CSV | User Login',
+            'body_title': 'User Login',
+            'msg': 'Access Forbidden'
+        }
+        return render()
 
 def user_logout(request):
     del request.session['session_email']
