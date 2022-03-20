@@ -34,6 +34,32 @@ def user_index(request):
         }
         return render(request, template, context)
 
+def user_update(request):
+    template = 'users/show.html'
+    if request.method == "POST":
+        user = CsvUser.objects.get(email=request.session['session_email'])
+        user.first_name = request.POST.get('first_name')
+        user.middle_name = request.POST.get('middle_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+        user.contact = request.POST.get('contact')
+        user.username = request.POST.get('username')
+        user.save()
+
+        context = {
+            'data': user,
+            'title': 'CSV | User Profile',
+            'msg': 'Updated Successfully'
+        }
+        return render(request, template, context)
+    else:
+        context = {
+            'data': user,
+            'title': 'CSV | User Profile',
+            'msg': 'Something went wrong'
+        }
+        return render(request, template, context)
+
 def user_show(request):
     if request.session.has_key('session_email'):
         user = CsvUser.objects.get(email=request.session['session_email'])

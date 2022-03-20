@@ -19,8 +19,8 @@ urlpatterns = [
     path('logout/', views.user_logout, name="user.logout"),
     path('create/', views.user_create, name="user.create"),
     path('show/', views.user_show, name="user.show"),
+    path('udpate/', views.user_update, name="user.update"),
     # path('store/', views.users_index, name="user.store"),
-    # path('udpate/', views.users_index, name="user.udpate"),
     # path('edit/<int:id>', views.users_index, name="user.edit"),
    
     # path('delete/<int:id>', views.users_index, name="user.delete"),
