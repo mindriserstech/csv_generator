@@ -15,6 +15,7 @@ urlpatterns = [
 
     # user
     path('', views.user_index, name="user.index"),
+    path('send-email', views.user_send_mail, name="user.email"),
     path('login/', views.user_login, name="user.login"),
     path('logout/', views.user_logout, name="user.logout"),
     path('create/', views.user_create, name="user.create"),

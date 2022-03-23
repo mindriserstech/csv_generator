@@ -25,6 +25,7 @@
       <div class="card">
         <div class="card-header">
           <h4>Welcome {{ data.first_name }} {{ data.middle_name }} {{ data.last_name }}</h4>
+          <h4><a href="{% url 'user.email' %}">Send</a></h4>
         </div>
       </div>
     </div>

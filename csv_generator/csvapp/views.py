@@ -1,6 +1,7 @@
 import email
 from importlib.metadata import requires
 from re import template
+from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -11,6 +12,10 @@ from csvapp.models import CsvUser
 from csvapp.form import UserTypeForm
 from csvapp.form import CsvUserLoginForm, CsvUserRegisterForm
 # Create your views here.
+
+# importing email package
+from django.core.mail import send_mail
+from django.conf import settings
 
 # user view funtion
 def user_index(request):
@@ -33,6 +38,17 @@ def user_index(request):
             'msg': 'Unauthorized access'
         }
         return render(request, template, context)
+
+def user_send_mail(request):
+    # if request.method == "POST":
+    #     sub = request.POST.get('subject')
+    subject = "CSV Generator"
+    message = "THis is CSV Generator"
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = ['izvirzl@gmail.com']
+
+    send_mail(subject, message, email_from, recipient_list)
+    return render(request, 'users/index.html')
 
 def user_update(request):
     template = 'users/show.html'
