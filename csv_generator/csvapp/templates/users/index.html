@@ -21,13 +21,44 @@
 <!-- section content -->
 {% block content %}
   <div class="row">
-    <div class="col-4 offset-3">
+    <div class="col-12">
       <div class="card">
         <div class="card-header">
           <h4>Welcome {{ data.first_name }} {{ data.middle_name }} {{ data.last_name }}</h4>
           <h4><a href="{% url 'user.email' %}">Send</a></h4>
         </div>
       </div>
+    </div>
+    <div class="col-12 mt-3">
+      <a href="{% url 'csv' %}" class="btn btn-sm btn-success">Export</a>
+    </div>
+    <div class="col-12 mt-4">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>S.No</td>
+            <td>First Name</td>
+            <td>Middle Name</td>
+            <td>Last Name</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Username</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in data_list %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.first_name }}</td>
+            <td>{{ i.middle_name }}</td>
+            <td>{{ i.last_name }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.contact }}</td>
+            <td>{{ i.username }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 {% endblock %}

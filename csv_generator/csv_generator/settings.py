@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'csvapp',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,12 @@ EMAIL_HOST_USER = 'c4crypt@gmail.com' # sender account
 EMAIL_HOST_PASSWORD = 'yraobasgzocllfbh' # sender account app password
 EMAIL_USE_TLS = True # data encryption protocal
 EMAIL_PORT = 587 # smtp port number
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

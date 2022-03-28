@@ -10,21 +10,37 @@ from csvapp.models import CsvUser
 
 # form class import 
 from csvapp.form import UserTypeForm
-from csvapp.form import CsvUserLoginForm, CsvUserRegisterForm
+from csvapp.form import CsvUserLoginForm, CsvUserRegisterForm, UserProfileForm
 # Create your views here.
 
 # importing email package
 from django.core.mail import send_mail
 from django.conf import settings
 
+import csv
+
+def export_to_csv(request):
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="test.csv"'}
+    )
+    user = CsvUser.objects.all()
+    writter = csv.writer(response)
+    writter.writerow(['First Name', 'Middle Name', 'Last Name', 'Contact', 'Email', 'Username'])
+    for i in user.values():
+        writter.writerow([i.get('first_name'), i.get('middle_name'), i.get('last_name'), i.get('contact'), i.get('email'),i.get('username')])
+    return response
+
 # user view funtion
 def user_index(request):
     if request.session.has_key('session_email'):
         user = CsvUser.objects.get(email=request.session['session_email'])
+        user_list = CsvUser.objects.all()
         context = {
             'title': 'CSV | User Index',
             'msg': 'Login success',
-            'data': user
+            'data': user,
+            'data_list': user_list
         }
         template = 'users/index.html'
         return render(request, template, context)
@@ -36,6 +52,31 @@ def user_index(request):
             'title': 'CSV | User Login',
             'body_title': 'User Login',
             'msg': 'Unauthorized access'
+        }
+        return render(request, template, context)
+
+def user_profile_upload(request):
+    user = CsvUser.objects.get(email=request.session['session_email'])
+    template = 'users/show.html'
+    pf = UserProfileForm 
+    if request.method == "POST":
+        up = UserProfileForm(request.POST, request.FILES)
+        if up.is_valid:
+            up.user_email = request.POST.get('user_email')
+            up.save()
+            context = {
+                'data': user,
+                'title': 'CSV | User Profile',
+                'form': pf,
+                'msg_success': 'Updated Successfully',
+            }
+            return render(request, template, context)
+    else:
+        context = {
+            'data': user,
+            'title': 'CSV | User Profile',
+            'form': pf,
+            'msg_error': 'Something went wrong'
         }
         return render(request, template, context)
 
@@ -80,9 +121,11 @@ def user_show(request):
     if request.session.has_key('session_email'):
         user = CsvUser.objects.get(email=request.session['session_email'])
         template = 'users/show.html'
+        pf = UserProfileForm    
         context = {
             'data': user,
-            'title': 'CSV | User Profile'
+            'title': 'CSV | User Profile',
+            'form': pf
         }
         return render(request, template, context)
     else:

@@ -34,9 +34,22 @@
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwSSBcFhvDf3wM3uCu6T-Obuuszq362TMpWFqKprdvscFAQ4xqGGYGdfMAbx0Obq8KV8g&usqp=CAU" class="rounded" alt="Rajesh hamal">
         </div>
         <div class="col-4">
-            <form action="#">
-                <label for="file" class="mb-2">Change Profile</label>
-                <input type="file" class="form-control">
+            <form action="{% url 'user.profile' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                    <input type="hidden" name="user_email" value="{{ data.email }}">
+                    <input type="submit" class="btn btn-primary" value="UPLOAD">
+                    {% if msg_success %}
+                    <div class="alert alert-success mt-2">
+                        {{ msg_success }}
+                    </div>
+                    {% elif msg_error %}
+                    <div class="alert alert-danger mt-2">
+                        {{ msg_error }}
+                    </div>
+                    {% endif %}
+
+                    {{ up }}
             </form>
         </div>
     </div>

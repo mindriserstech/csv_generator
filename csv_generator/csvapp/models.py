@@ -16,6 +16,7 @@ class CsvUserType(models.Model):
     class Meta:
         db_table = "csvusertypes"
 
+
 #  our application model
 class CsvUser(models.Model):
     first_name = models.CharField(max_length=100, null=False)
@@ -32,6 +33,23 @@ class CsvUser(models.Model):
 
     class Meta:
         db_table = "csv_user"
+
+    # converting user object to string 
+    def __str__(self):
+        return self.first_name
+
+
+
+class CsvUserProfile(models.Model):
+    profile_url = models.FileField(upload_to='users/profile/')
+    user_email = models.CharField(max_length=200)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = "csv_user_profile"
+
+    def __str__(self):
+        return self.profile_url
 
 class CsvUserSchedule(models.Model):
     title = models.CharField(max_length=50, null=False)
